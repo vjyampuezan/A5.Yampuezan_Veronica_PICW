@@ -52,4 +52,47 @@ class CalculadoraWeb extends HTMLElement {
     const n2 = parseFloat(this.shadowRoot.querySelector('#valor2').value);
     const tipo = this.shadowRoot.querySelector('#operador').value;
     const salida = this.shadowRoot.querySelector('#salida');
-    const historial = this.shadowRoot.querySelector('#registro');       
+    const historial = this.shadowRoot.querySelector('#registro');
+// Se validaron números
+    if (isNaN(n1) || isNaN(n2)) {
+      salida.textContent = 'Error: Ingrese dos números válidos.';
+      salida.className = 'alert alert-danger mt-3';
+      return;
+    }
+
+    let resultado, signo;
+
+    switch (tipo) {
+      case 'sumar':
+        resultado = n1 + n2; signo = '+'; break;
+      case 'restar':
+        resultado = n1 - n2; signo = '-'; break;
+      case 'multiplicar':
+        resultado = n1 * n2; signo = '×'; break;
+      case 'dividir':
+        if (n2 === 0) {
+          salida.textContent = 'Error: No se puede dividir entre cero.';
+          salida.className = 'alert alert-danger mt-3';
+          return;
+        }
+        resultado = n1 / n2; signo = '÷'; break;
+    }
+
+    // Se mostró resultado
+    salida.textContent = Resultado: ${resultado};
+    salida.className = 'alert alert-success mt-3';
+
+    // Se agregó al historial
+    const item = document.createElement('li');
+    item.className = 'list-group-item';
+    item.textContent = ${n1} ${signo} ${n2} = ${resultado};
+    historial.appendChild(item);
+
+    // Se emitió evento personalizado
+    this.dispatchEvent(new CustomEvent('resultado-listo', {
+      detail: { n1, n2, operacion: tipo, resultado },
+      bubbles: true,
+      composed: true
+    }));
+  }
+}
