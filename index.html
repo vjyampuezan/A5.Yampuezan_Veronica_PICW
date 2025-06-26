@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora con Custom Elements</title>
-  <!-- Bootstrap 5 desde local -->
-  <link rel="stylesheet" href="./public/bootstrap/css/bootstrap.min.css">
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Calculadora Web</title>
 
+  <!-- Se insertó Bootstrap desde local -->
+  <link rel="stylesheet" href="./public/lib/bootstrap/css/bootstrap.min.css" />
+</head>
 <body>
-  <h1 class="text-center mt-4">Calculadora Básica con Custom Elements</h1>
+  <!-- Se insertó título principal -->
+  <h2 class="text-center mt-4 text-success">Operaciones Aritméticas con Web Component</h2>
+
   <div class="container mt-4">
-    <!-- Componente personalizado -->
-    <calculadora-basica></calculadora-basica>
+    <!-- Se insertó componente personalizado -->
+    <calculadora-web></calculadora-web>
   </div>
 
+  <!-- Se insertó script del componente -->
   <script src="./public/js/calculadora.js"></script>
-</body>
 
+  <!-- Se escuchó evento emitido -->
+  <script>
+    document.querySelector('calculadora-web')
+      .addEventListener('resultado-listo', (e) => {
+        console.log("Resultado procesado:", e.detail);
+      });
+  </script>
+</body>
 </html>
