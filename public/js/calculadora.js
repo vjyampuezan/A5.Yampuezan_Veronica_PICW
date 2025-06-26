@@ -32,4 +32,24 @@ class CalculadoraWeb extends HTMLElement {
         </div>
 
         <div id="salida" class="alert alert-secondary mt-3">Esperando operación...</div>
-        
+<!-- Se incluyó historial -->
+        <div class="mt-3">
+          <h6>Historial:</h6>
+          <ul id="registro" class="list-group small"></ul>
+        </div>
+      </div>
+    `;
+  }
+
+  connectedCallback() {
+    const boton = this.shadowRoot.querySelector('#resolver');
+    boton.addEventListener('click', () => this.calcularResultado());
+  }
+
+  calcularResultado() {
+    // Se capturaron datos
+    const n1 = parseFloat(this.shadowRoot.querySelector('#valor1').value);
+    const n2 = parseFloat(this.shadowRoot.querySelector('#valor2').value);
+    const tipo = this.shadowRoot.querySelector('#operador').value;
+    const salida = this.shadowRoot.querySelector('#salida');
+    const historial = this.shadowRoot.querySelector('#registro');       
