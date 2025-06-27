@@ -3,9 +3,10 @@ class CalculadoraWeb extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' }); // Se activó el Shadow DOM
-  // Se insertó estructura y estilos
+
+    // Se insertó estructura y estilos
     this.shadowRoot.innerHTML = `
-      <link rel="stylesheet" href="/public/lib/bootstrap/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/public/lib/bootstrap-5.3.6-dist/css/bootstrap.min.css" />
 
       <div class="card border-info p-4">
         <h5 class="text-center text-info mb-3">Calculadora Interactiva</h5>
@@ -32,7 +33,8 @@ class CalculadoraWeb extends HTMLElement {
         </div>
 
         <div id="salida" class="alert alert-secondary mt-3">Esperando operación...</div>
-<!-- Se incluyó historial -->
+
+        <!-- Se incluyó historial -->
         <div class="mt-3">
           <h6>Historial:</h6>
           <ul id="registro" class="list-group small"></ul>
@@ -53,7 +55,8 @@ class CalculadoraWeb extends HTMLElement {
     const tipo = this.shadowRoot.querySelector('#operador').value;
     const salida = this.shadowRoot.querySelector('#salida');
     const historial = this.shadowRoot.querySelector('#registro');
-// Se validaron números
+
+    // Se validaron números
     if (isNaN(n1) || isNaN(n2)) {
       salida.textContent = 'Error: Ingrese dos números válidos.';
       salida.className = 'alert alert-danger mt-3';
@@ -79,13 +82,13 @@ class CalculadoraWeb extends HTMLElement {
     }
 
     // Se mostró resultado
-    salida.textContent = Resultado: ${resultado};
+    salida.textContent = `Resultado: ${resultado}`;
     salida.className = 'alert alert-success mt-3';
 
     // Se agregó al historial
     const item = document.createElement('li');
     item.className = 'list-group-item';
-    item.textContent = ${n1} ${signo} ${n2} = ${resultado};
+    item.textContent = `${n1} ${signo} ${n2} = ${resultado}`;
     historial.appendChild(item);
 
     // Se emitió evento personalizado
@@ -96,3 +99,6 @@ class CalculadoraWeb extends HTMLElement {
     }));
   }
 }
+
+// Se registró el componente
+customElements.define('calculadora-web', CalculadoraWeb);
